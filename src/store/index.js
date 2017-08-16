@@ -17,22 +17,24 @@ const api = {
   }
 }
 
-export default new Vuex.Store({
-  state: {},
-  getters: {},
-  mutations: {
-    [types.LIST_RESOURCE] (state, resource) {
-      state[resource.prop] = resource.body
+export function createStore () {
+  return new Vuex.Store({
+    state: {},
+    getters: {},
+    mutations: {
+      [types.LIST_RESOURCE] (state, resource) {
+        state[resource.prop] = resource.body
+      }
+    },
+    actions: {
+      async listResource ({commit}, config) {
+        return api.get(config.url)
+          .then(({body}) => commit(types.LIST_RESOURCE, {
+            body: body,
+            prop: config.prop
+          }))
+          .catch(e => Promise.reject(e))
+      }
     }
-  },
-  actions: {
-    async listResource ({commit}, config) {
-      return api.get(config.url)
-        .then(({body}) => commit(types.LIST_RESOURCE, {
-          body: body,
-          prop: config.prop
-        }))
-        .catch(e => Promise.reject(e))
-    }
-  }
-})
+  })
+}
