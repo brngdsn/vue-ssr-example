@@ -5,6 +5,9 @@ const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 
 module.exports = merge(baseConfig, {
   entry: '../src/entry-client.js',
+  output: {
+    filename: 'vue-ssr-client-manifest'
+  },
   plugins: [
     // Important: this splits the webpack runtime into a leading chunk
     // so that async chunks can be injected right after it.

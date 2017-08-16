@@ -17,6 +17,7 @@ module.exports = merge(baseConfig, {
 
   // This tells the server bundle to use Node-style exports
   output: {
+    filename: 'vue-ssr-server-bundle',
     libraryTarget: 'commonjs2'
   },
 
